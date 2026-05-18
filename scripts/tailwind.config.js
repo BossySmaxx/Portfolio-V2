@@ -1,0 +1,50 @@
+tailwind.config = {
+    theme: {
+        extend: {
+            fontFamily: {
+                mono: ['"Space Mono"', "monospace"],
+                sans: ['"DM Sans"', "sans-serif"],
+            },
+            colors: {
+                void: "#080808",
+                surface: "#111111",
+                raised: "#181818",
+                border: "#252525",
+                "border-accent": "#333333",
+                phosphor: "#39ff84",
+                "phosphor-dim": "#1a7a3e",
+                "phosphor-tint": "rgba(57,255,132,0.07)",
+                amber: "#f5a623",
+                "amber-dim": "#6b4710",
+                electric: "#4dabf7",
+                "electric-dim": "#1a3a5c",
+                crimson: "#ff5f57",
+                text: "#e8e6e0",
+                muted: "#6b6965",
+                subtle: "#3d3b37",
+            },
+            animation: {
+                blink: "blink 1s step-end infinite",
+                scanline: "scanline 4s linear infinite",
+                fadeup: "fadeup 0.7s cubic-bezier(.16,1,.3,1) both",
+                "pulse-border": "pulseBorder 2.5s ease infinite",
+                shimmer: "shimmer 2.2s linear infinite",
+                glitch: "glitch 4s infinite",
+            },
+            keyframes: {
+                blink: { "0%,100%": { opacity: "1" }, "50%": { opacity: "0" } },
+                scanline: { "0%": { transform: "translateY(-100%)" }, "100%": { transform: "translateY(2000%)" } },
+                fadeup: { from: { opacity: "0", transform: "translateY(24px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+                pulseBorder: { "0%,100%": { borderColor: "#1a7a3e" }, "50%": { borderColor: "#39ff84" } },
+                shimmer: { from: { backgroundPosition: "-200% 0" }, to: { backgroundPosition: "200% 0" } },
+                glitch: {
+                    "0%,95%,100%": { clipPath: "inset(0 0 100% 0)", transform: "translateX(0)" },
+                    "96%": { clipPath: "inset(20% 0 60% 0)", transform: "translateX(-5px)" },
+                    "97%": { clipPath: "inset(50% 0 30% 0)", transform: "translateX(5px)" },
+                    "98%": { clipPath: "inset(10% 0 80% 0)", transform: "translateX(-3px)" },
+                    "99%": { clipPath: "inset(70% 0 10% 0)", transform: "translateX(3px)" },
+                },
+            },
+        },
+    },
+};

@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Aniket Chauhan_ · Full Stack Engineer</title>
+
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script src="./scripts/tailwind.min.js"></script>
+        <script src="./scripts/tailwind.config.js"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="./style.css" />
+        <!-- <link rel="stylesheet" href="./css/crt.css" /> -->
+
+        <script src="./scripts/p5.min.js"></script>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            .hero-text-effect-container {
+                width: 100%;
+                min-height: 600px;
+            }
+        </style>
+    </head>
+    <body class="antialiased crt">
+        <!-- CURSOR -->
+        <div id="cursor"></div>
+        <div id="cursor-ring"></div>
+
+        <!-- navigation bar -->
+        <nav>
+            <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+                <a href="#hero" class="font-mono text-sm font-bold text-phosphor hover:opacity-80 transition-opacity cursor-none">
+                    <span class="glitch-wrap" style="font-size: 16px" data-text="CHAUHAN ANIKET">ANIKET CHAUHAN_</span>
+                </a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#about" class="font-mono text-xs text-muted hover:text-phosphor transition-colors tracking-wider cursor-none">./about</a>
+                    <a href="#projects" class="font-mono text-xs text-muted hover:text-phosphor transition-colors tracking-wider cursor-none">./work</a>
+                    <a href="#stack" class="font-mono text-xs text-muted hover:text-phosphor transition-colors tracking-wider cursor-none">./stack</a>
+                    <a href="#experience" class="font-mono text-xs text-muted hover:text-phosphor transition-colors tracking-wider cursor-none">./exp</a>
+                    <a href="#contact" class="font-mono text-xs text-muted hover:text-phosphor transition-colors tracking-wider cursor-none">./contact</a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="avail-dot"></div>
+                    <span class="font-mono text-xs text-phosphor tracking-wider status-indicator">AVAILABLE</span>
+                </div>
+            </div>
+        </nav>
+
+        <section id="hero" class="relative min-h-screen flex flex-col justify-center noise grid-bg overflow-hidden">
+            <div class="hero-text-effect-container" id="hero-canvas"></div>
+            <div class="scanline-overlay"></div>
+
+            <div class="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16">
+                <div class="font-mono text-xs text-subtle tracking-widest mb-6 animate-fadeup" style="animation-delay: 0.1s">▓▒░&nbsp;&nbsp;PORTFOLIO&nbsp;&nbsp;░▒▓&nbsp;&nbsp;&nbsp;v2025.04</div>
+
+                <!-- name -->
+                <h1 class="font-mono font-bold text-text leading-none mb-4 animate-fadeup" style="font-size: clamp(2.8rem, 8vw, 7rem); animation-delay: 0.2s">
+                    <span class="glitch-wrap" data-text="CHAUHAN">ANIKET_</span>
+                </h1>
+
+                <!-- typewriter effect -->
+                <div class="font-mono text-lg md:text-2xl text-muted mb-6 animate-fadeup" style="animation-delay: 0.35s">
+                    <span class="text-phosphor">$&gt;</span>&nbsp;<span id="typewriter" class="typewriter-text"></span>
+                </div>
+
+                <!-- summary -->
+                <p class="font-sans text-muted text-base md:text-lg max-w-xl mb-10 leading-relaxed animate-fadeup" style="animation-delay: 0.5s">
+                    Developed robust backend systems and designed performant and intuitive frontend interfaces — 3.6+ years of turning complex problems into elegant, scalable solutions.
+                </p>
+
+                <!-- CTAs -->
+                <div class="flex flex-wrap gap-4 mb-16 animate-fadeup" style="animation-delay: 0.65s">
+                    <a href="#projects" class="cta-btn solid">[ VIEW MY WORK ]</a>
+                    <a href="#contact" class="cta-btn transparent">[ LET'S TALK → ]</a>
+                </div>
+
+                <!-- stats row -->
+                <div class="grid grid-cols-3 md:grid-cols-3 gap-6 max-w-lg animate-fadeup" style="animation-delay: 0.8s">
+                    <div class="border-l-2 border-phosphor-dim pl-4">
+                        <div class="font-mono text-2xl font-bold text-text">3.6+</div>
+                        <div class="font-mono text-xs text-muted mt-1">YRS EXP</div>
+                    </div>
+                    <div class="border-l-2 border-phosphor-dim pl-4">
+                        <div class="font-mono text-2xl font-bold text-text">10+</div>
+                        <div class="font-mono text-xs text-muted mt-1">PROJECTS</div>
+                    </div>
+                    <div class="border-l-2 border-phosphor-dim pl-4">
+                        <div class="font-mono text-2xl font-bold text-text">∞</div>
+                        <div class="font-mono text-xs text-muted mt-1">COMMITS</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- scroll hint -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fadeup" style="animation-delay: 1.2s">
+                <span class="font-mono text-xs text-subtle tracking-widest">SCROLL</span>
+                <div class="w-px h-12 bg-gradient-to-b from-phosphor-dim to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- About me section -->
+        <section id="about" class="py-32 border-t border-border border-b">
+            <!-- add interactive dragable components for redis, mysql, servers that can be interconnected using lines and animations etc...  -->
+
+            <!-- main content for about me -->
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- label -->
+                <div class="section-label reveal mb-12">// 02 — ABOUT ME</div>
+
+                <div class="grid md:grid-cols-2 gap-16 items-start">
+                    <!-- ASCII art + terminal -->
+                    <div class="tamagotchi-container">
+                        <div class="light-beam"></div>
+                        <div class="reveal tamagotchi-screen">
+                            <div class="terminal rounded-none">
+                                <div class="terminal-bar">
+                                    <div class="tbar-dot" style="background: #ff5f57"></div>
+                                    <div class="tbar-dot" style="background: #febc2e"></div>
+                                    <div class="tbar-dot" style="background: #28c840"></div>
+                                    <span class="font-mono text-xs text-subtle ml-2">about.sh</span>
+                                </div>
+                                <div class="p-6">
+                                    <pre class="ascii-pre text-[14px] leading-[1.4] mb-6" style="font-family: monospace">
+┌─────────────────────────────┐
+│   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   │
+│   ▓                     ▓   │
+│   ▓  ╔═══════════════╗  ▓   │
+<span class="tamagotchi-eye " style="display: inline-block;position: relative;">│   ▓  ║ ◉  (_..)  ◉  ║  ▓   │</span>
+│   ▓  ║     ─────     ║  ▓   │
+│   ▓  ║   \_______/   ║  ▓   │
+│   ▓  ╚═══════════════╝  ▓   │
+│   ▓                     ▓   │
+│   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   │
+└─────────────────────────────┘
+         &lt; aniket chauhan /&gt;
+</pre>
+                                    <div class="space-y-1">
+                                        <div class="font-mono text-xs"><span class="text-phosphor">$</span> <span class="text-muted">whoami</span></div>
+                                        <div class="font-mono text-xs text-subtle pl-4">→ Full Stack Engineer · 3.6+yr · New Delhi</div>
+                                        <div class="font-mono text-xs mt-2"><span class="text-phosphor">$</span> <span class="text-muted">cat interests.txt</span></div>
+                                        <div class="font-mono text-xs text-subtle pl-4">→ Backend architecture, Angular, APIs</div>
+                                        <div class="font-mono text-xs mt-2"><span class="text-phosphor">$</span> <span class="text-muted">echo $STATUS</span></div>
+                                        <div class="font-mono text-xs text-phosphor pl-4 blink">→ AVAILABLE FOR OPPORTUNITIES</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- bio -->
+                    <div class="reveal reveal-delay-2 space-y-6">
+                        <h2 class="font-mono text-2xl font-bold text-text">
+                            Building things<br />
+                            <span class="text-phosphor">that scale.</span>
+                        </h2>
+
+                        <p class="font-sans text-muted text-sm leading-relaxed">
+                            I'm Aniket Chauhan, a backend-heavy full-stack engineer based in Delhi NCR with 3.6+ years of experience building and shipping production systems that scale. I specialize
+                            in Node.js, TypeScript, and cloud infrastructure — architecting multi-tenant SaaS platforms, high-throughput REST APIs, and real-time pipelines across wellness, healthcare
+                            and ERP products.
+                        </p>
+                        <p class="font-sans text-muted text-sm leading-relaxed">
+                            From optimizing MySQL queries to reducing API latency by ~30%, to integrating payment gateways, live-streaming pipelines, and WhatsApp Business APIs — I've owned full
+                            product verticals end to end. I write clean, purposeful code and thrive in fast-moving teams where ownership is real and the work ships.
+                        </p>
+                        <p class="font-sans text-muted text-sm leading-relaxed">If you need someone who figures things out and sees them through — I'm your guy.</p>
+
+                        <!-- tags -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="badge badge-green">BACKEND</span>
+                            <span class="badge badge-green">FRONTEND</span>
+                            <span class="badge badge-blue">API DESIGN</span>
+                            <span class="badge badge-blue">DATABASES</span>
+                            <span class="badge badge-amber">DEVOPS</span>
+                            <span class="badge badge-muted">CLOUD COMPUTE</span>
+                        </div>
+
+                        <a href="#contact" class="cta-btn inline-block mt-2">[ DOWNLOAD RESUME ]</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════
+       PROJECTS
+  ════════════════════════════════════════ -->
+        <section id="projects" class="py-32 border-t border-border">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="section-label reveal mb-4">// 03 — SELECTED WORK</div>
+                <h2 class="font-mono text-3xl font-bold text-text reveal mb-16">Projects<span class="text-phosphor">_</span></h2>
+
+                <!-- featured project -->
+                <div class="project-card reveal mb-6 p-8 md:p-10 relative overflow-hidden" style="animation-delay: 0.1s">
+                    <div class="absolute top-4 right-4 font-mono text-xs text-subtle">FEATURED / 01</div>
+                    <div class="grid md:grid-cols-5 gap-8 items-start">
+                        <div class="md:col-span-3">
+                            <div class="font-mono text-xs text-phosphor mb-3 tracking-wider">Fullstack · 2024</div>
+                            <h3 class="font-mono text-2xl font-bold text-text mb-4">Lookzup<span class="text-phosphor">_</span></h3>
+                            <p class="font-sans text-muted text-sm leading-relaxed mb-6">
+                                A complete Automation and CRM platform built using Node.js and microservices architecture, designed for scalability and high performance using asynchronous processing,
+                                message queues, caching, and optimized database queries.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="badge badge-green">NODE.JS</span>
+                                <span class="badge badge-green">ANGULAR</span>
+                                <span class="badge badge-blue">MYSQL</span>
+                                <span class="badge badge-blue">REDIS</span>
+                                <!-- <span class="badge badge-amber">WEBSOCKETS</span> -->
+                                <span class="badge badge-muted">GCP</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="https://lookzup.com/" target="_blank" class="font-mono text-xs text-phosphor hover:opacity-70 transition-opacity cursor-none">[ LIVE ↗ ]</a>
+                                <!-- <a class="font-mono text-xs text-muted hover:text-text transition-colors cursor-not-allowed">[ GITHUB ]</a> -->
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <div class="terminal">
+                                <div class="terminal-bar">
+                                    <div class="tbar-dot bg-crimson"></div>
+                                    <div class="tbar-dot" style="background: #febc2e"></div>
+                                    <div class="tbar-dot" style="background: #28c840"></div>
+                                    <span class="font-mono text-xs text-subtle ml-2">metrics.log</span>
+                                </div>
+                                <div class="p-4 font-mono text-xs text-muted space-y-1">
+                                    <div><span class="text-phosphor">●</span> High-throughput REST APIs</div>
+                                    <div><span class="text-phosphor">●</span> 99.9% uptime</div>
+                                    <div><span class="text-electric">◆</span> Pipelines for payments, inventory, billing and notifications</div>
+                                    <div><span class="text-amber">▲</span> ~30% perf gain over intial version</div>
+                                    <div><span class="text-electric">◆</span>Best security practices</div>
+                                    <div class="pt-2 text-subtle">──────────────────</div>
+                                    <div><span class="text-phosphor">$</span> npm run deploy <span class="text-phosphor animate-blink">▋</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- project grid -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- card 2 -->
+                    <div class="project-card reveal reveal-delay-1 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">BACKEND · 02</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">Medical Tourism Help Center<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Engineered a serverless Medical Tourism platform on AWS Lambda + MySQL, powering secure patient-doctor communication portals, lead management workflows, and thousands of
+                            daily international healthcare events at scale.
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-green">JAVASCRIPT</span>
+                            <span class="badge badge-blue">MYSQL</span>
+                            <span class="badge badge-amber">AWS LAMBDA</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://www.medicaltourismhelpcenter.com/home" target="_blank" class="font-mono text-xs text-phosphor cursor-none">[ LIVE ↗ ]</a>
+                            <!-- <a href="#" class="font-mono text-xs text-muted hover:text-text cursor-none">[ CODE ]</a> -->
+                        </div>
+                    </div>
+
+                    <!-- card 3 -->
+                    <div class="project-card reveal reveal-delay-2 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">FULLSTACK · 03</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">FFmpeg RTSP Streaming Pipeline<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Engineered a live-streaming pipeline for <a href="https://www.ispeck.co/" target="_blank" class="badge badge-blue">iSpeck</a> using FFmpeg to transmux RTSP feeds into HLS
+                            for web playback; built an interactive overlay for real-time region marking and shape rendering on multiple live camera video feeds.
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-green">ANGULAR</span>
+                            <span class="badge badge-blue">RTSP</span>
+                            <span class="badge badge-blue">NODE.JS</span>
+                            <span class="badge badge-amber">FFMPEG</span>
+                            <span class="badge badge-amber">HLS</span>
+                            <span class="badge badge-amber">FABRIC JS</span>
+                            <span class="badge badge-amber">AWS</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a href="https://www.ispeck.co" target="_blank" class="font-mono text-xs text-phosphor cursor-none">[ LIVE ↗ ]</a>
+                            <!-- <a href="#" class="font-mono text-xs text-muted hover:text-text cursor-none">[ CODE ]</a> -->
+                        </div>
+                    </div>
+
+                    <!-- card 4 -->
+                    <div class="project-card reveal reveal-delay-3 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">FRONTEND · 04</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">Cure Mantra<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Built end-to-end Angular frontend for Cure Mantra healthcare platform, delivering responsive Doctor & Patient portals with appointment booking, advanced doctor search,
+                            vitals tracking using <span class="badge badge-green">CHART.JS</span>, payments, and real-time notifications (WhatsApp, FCM, Email).
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-blue">ANGULAR</span>
+                            <span class="badge badge-green">TAILWIND CSS</span>
+                            <span class="badge badge-amber">SCSS</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a class="font-mono text-xs text-phosphor cursor-not-allowed" target="_blank" disabled="true">[ LIVE ↗ ]</a>
+                            <!-- <a href="#" class="font-mono text-xs text-muted hover:text-text cursor-none">[ CODE ]</a> -->
+                        </div>
+                    </div>
+
+                    <!-- card 5 -->
+                    <div class="project-card reveal reveal-delay-1 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">BACKEND · 05</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">Dripple (Formerly Dratoo)<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Engineered ride-hailing backend services for Dratoo super-app using Node.js, MySQL & Redis, implementing realtime driver discovery, real-time location tracking, driver-user
+                            fare bargaining, and live FCM ride events — deployed on AWS ECS for scale.
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-green">NODEJS</span>
+                            <span class="badge badge-green">EXPRESS</span>
+                            <span class="badge badge-blue">REDIS (AWS ElastiCache)</span>
+                            <span class="badge badge-blue">MYSQL</span>
+                            <span class="badge badge-amber">AWS ECS</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <!-- <a href="#" class="font-mono text-xs text-phosphor cursor-none">[ LIVE ↗ ]</a>
+                            <a href="#" class="font-mono text-xs text-muted hover:text-text cursor-none">[ CODE ]</a> -->
+                        </div>
+                    </div>
+
+                    <!-- card 6 -->
+                    <div class="project-card reveal reveal-delay-2 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">P2P NETWORKING · 06</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">CLIP — Cross-device LAN Interlinked Paste<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Seamlessly syncs clipboards across multiple devices on the same network. Real-time clipboard syncing over LAN, Lightning-fast peer-to-peer communication using UDP
+                            broadcasting for peer discovery and WebSockets for instant clipboard push/pull between all connected devices.
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-green">NODE.JS</span>
+                            <span class="badge badge-amber">WEB SOCKETS</span>
+                            <span class="badge badge-blue">UDP BROADCASTING</span>
+                            <span class="badge badge-blue">TCP</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a class="font-mono text-xs text-muted cursor-not-allowed" target="_blank">[ LIVE ↗ ]</a>
+                            <a href="https://github.com/BossySmaxx/CLIP/tree/main" target="_blank" class="font-mono text-xs text-phosphor hover:text-text cursor-pointer">[ CODE ↗ ]</a>
+                        </div>
+                    </div>
+
+                    <!-- card 7 -->
+                    <div class="project-card reveal reveal-delay-2 p-6">
+                        <div class="font-mono text-xs text-muted mb-3">DESKTOP APP · 06</div>
+                        <h3 class="font-mono text-base font-bold text-text mb-3">RadiusReach<span class="text-phosphor">_</span></h3>
+                        <p class="font-sans text-muted text-xs leading-relaxed mb-4">
+                            Turn maps into revenue streams. RadiusReach is a precision outreach platform that lets you discover, organize, and automate communications with businesses in any geographic
+                            radius. Map-Based Discovery, Smart Collections, Offline first.
+                        </p>
+                        <div class="flex flex-wrap gap-1 mb-4">
+                            <span class="badge badge-green">NODE.JS</span>
+                            <span class="badge badge-blue">ELECTRON</span>
+                            <span class="badge badge-blue">ANGULAR</span>
+                            <span class="badge badge-amber">PRIME NG</span>
+                            <span class="badge badge-amber">RxJS</span>
+                            <span class="badge badge-blue">RxDB</span>
+                        </div>
+                        <div class="flex gap-3">
+                            <a class="font-mono text-xs text-muted cursor-not-allowed" target="_blank">[ LIVE ↗ ]</a>
+                            <!-- <a href="https://github.com/BossySmaxx/CLIP/tree/main" target="_blank" class="font-mono text-xs text-phosphor hover:text-text cursor-pointer">[ CODE ↗ ]</a> -->
+                        </div>
+                    </div>
+
+                    <!-- card 7 / more -->
+                    <!-- <div class="reveal reveal-delay-3 p-6 border border-dashed border-border flex flex-col items-center justify-center gap-3 min-h-[180px]">
+                        <div class="font-mono text-xs text-subtle text-center">+ MORE ON GITHUB</div>
+                        <a href="#" class="cta-btn text-xs cursor-none">[ VIEW ALL ]</a>
+                    </div> -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════════════════════════════TECH STACK════════════════════════════════════════ -->
+        <section id="stack" class="py-32 border-t border-border">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="section-label reveal mb-4">// 04 — TECH STACK</div>
+                <h2 class="font-mono text-3xl font-bold text-text reveal mb-16">Skills<span class="text-phosphor">_</span></h2>
+
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <!-- Backend -->
+                    <div class="reveal">
+                        <div class="terminal rounded-none mb-4">
+                            <div class="terminal-bar">
+                                <div class="tbar-dot bg-crimson"></div>
+                                <div class="tbar-dot" style="background: #febc2e"></div>
+                                <div class="tbar-dot" style="background: #28c840"></div>
+                                <span class="font-mono text-xs text-subtle ml-2">backend/</span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-1 text-muted">
+                                <div><span class="text-subtle">├─</span> Node.js <span class="text-phosphor ml-1">9/10</span></div>
+                                <div><span class="text-subtle">├─</span> Express <span class="text-phosphor ml-1">9/10</span></div>
+                                <div><span class="text-subtle">├─</span> Javascript <span class="text-phosphor ml-1">9/10</span></div>
+                                <div><span class="text-subtle">├─</span> Go <span class="text-phosphor ml-1">7/10</span></div>
+                                <div><span class="text-subtle">├─</span> gRPC <span class="text-phosphor ml-1">7/10</span></div>
+                                <div><span class="text-subtle">├─</span> REST APIs <span class="text-phosphor ml-1">8.5/10</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Frontend -->
+                    <div class="reveal reveal-delay-1">
+                        <div class="terminal rounded-none mb-4">
+                            <div class="terminal-bar">
+                                <div class="tbar-dot bg-crimson"></div>
+                                <div class="tbar-dot" style="background: #febc2e"></div>
+                                <div class="tbar-dot" style="background: #28c840"></div>
+                                <span class="font-mono text-xs text-subtle ml-2">frontend/</span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-1 text-muted">
+                                <div><span class="text-subtle">├─</span> Angular <span class="text-amber ml-1">8/10</span></div>
+                                <div><span class="text-subtle">├─</span> SCSS <span class="text-amber ml-1">7/10</span></div>
+                                <div><span class="text-subtle">├─</span> TypeScript <span class="text-amber ml-1">8/10</span></div>
+                                <div><span class="text-subtle">├─</span> Tailwind <span class="text-amber ml-1">9/10</span></div>
+                                <div><span class="text-subtle">└─</span> Angular Material <span class="text-amber ml-1">9/10</span></div>
+                                <div><span class="text-subtle">└─</span> PrimeNG <span class="text-amber ml-1">7/10</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Infra -->
+                    <div class="reveal reveal-delay-2">
+                        <div class="terminal rounded-none mb-4">
+                            <div class="terminal-bar">
+                                <div class="tbar-dot bg-crimson"></div>
+                                <div class="tbar-dot" style="background: #febc2e"></div>
+                                <div class="tbar-dot" style="background: #28c840"></div>
+                                <span class="font-mono text-xs text-subtle ml-2">infra/</span>
+                            </div>
+                            <div class="p-5 font-mono text-xs space-y-1 text-muted">
+                                <div><span class="text-subtle">├─</span> MySQL <span class="text-electric ml-1">8/10</span></div>
+                                <div><span class="text-subtle">├─</span> PostgreSQL <span class="text-electric ml-1">7/10</span></div>
+                                <div><span class="text-subtle">├─</span> Redis <span class="text-electric ml-1">8/10</span></div>
+                                <div><span class="text-subtle">├─</span> Docker <span class="text-electric ml-1">8/10</span></div>
+                                <div><span class="text-subtle">├─</span> AWS/GCP <span class="text-electric ml-1">8/10</span></div>
+                                <div><span class="text-subtle">└─</span> Linux <span class="text-electric ml-1">8.5/10</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- animated skill bars -->
+                <div class="reveal">
+                    <div class="font-mono text-xs text-subtle mb-6 tracking-wider">// PROFICIENCY BREAKDOWN</div>
+                    <div class="grid md:grid-cols-2 gap-x-16 gap-y-5">
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">Node.js / Express</span>
+                                <span class="font-mono text-xs text-phosphor">96%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill" data-width="96"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">Angular / Material</span>
+                                <span class="font-mono text-xs text-amber">85%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill amber" data-width="85"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">MySQL / Redis</span>
+                                <span class="font-mono text-xs text-phosphor">85%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill" data-width="85"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">TypeScript</span>
+                                <span class="font-mono text-xs text-amber">82%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill amber" data-width="82"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">Docker / AWS</span>
+                                <span class="font-mono text-xs text-electric">80%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill electric" data-width="80"></div></div>
+                        </div>
+
+                        <div class="skill-item">
+                            <div class="flex justify-between mb-2">
+                                <span class="font-mono text-xs text-text">API Design / REST</span>
+                                <span class="font-mono text-xs text-phosphor">94%</span>
+                            </div>
+                            <div class="h-px bg-border"><div class="skill-bar-fill" data-width="94"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- tag cloud -->
+                <div class="reveal mt-12">
+                    <div class="font-mono text-xs text-subtle mb-4 tracking-wider">// ALL TOOLS</div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="stack-tag">Node.js</span>
+                        <span class="stack-tag">Express</span>
+                        <span class="stack-tag">Angular</span>
+                        <span class="stack-tag">Angular Material</span>
+                        <span class="stack-tag">TypeScript</span>
+                        <span class="stack-tag">JavaScript</span>
+                        <span class="stack-tag">Tailwind</span>
+                        <span class="stack-tag">PostgreSQL</span>
+                        <span class="stack-tag">MongoDB</span>
+                        <span class="stack-tag">Redis</span>
+                        <span class="stack-tag">Go</span>
+                        <span class="stack-tag">Docker</span>
+                        <span class="stack-tag">Nginx</span>
+                        <span class="stack-tag">AWS</span>
+                        <span class="stack-tag">S3</span>
+                        <span class="stack-tag">Git</span>
+                        <span class="stack-tag">Linux</span>
+                        <span class="stack-tag">GCP</span>
+                        <span class="stack-tag">REST</span>
+                        <span class="stack-tag">Jest</span>
+                        <span class="stack-tag">Playright</span>
+                        <span class="stack-tag">Sequelize</span>
+                        <span class="stack-tag">MySQL</span>
+                        <span class="stack-tag">ElectronJS</span>
+                        <span class="stack-tag">PrimeNG</span>
+                        <span class="stack-tag">SCSS</span>
+                        <span class="stack-tag">Postman</span>
+                        <span class="stack-tag">Figma</span>
+                        <span class="stack-tag">AdobeXD</span>
+                        <span class="stack-tag">FCM</span>
+                        <span class="stack-tag">Firebase</span>
+                        <span class="stack-tag">FFMPEG</span>
+                        <span class="stack-tag">HLS</span>
+                        <span class="stack-tag">WebSockets</span>
+                        <span class="stack-tag">Nodemailer</span>
+                        <span class="stack-tag">ECS</span>
+                        <span class="stack-tag">Puppeteer</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="./utils/distance-calculator.js"></script>
+        <script src="./app.js"></script>
+        <script src="./scripts/animations.js"></script>
+    </body>
+</html>

@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1a1a;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --border-accent: #3a3a3a;
+    --text: #e8e6e0;
+    --muted: #6b6965;
+    --subtle: #3d3b37;
+    --green: #39ff84;
+    --green-dim: #1a7a3e;
+    --amber: #f5a623;
+    --amber-dim: #6b4710;
+    --blue: #4dabf7;
+    --blue-dim: #1a3a5c;
+    --red: #ff5f57;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ─── NAV ─── */
+  .ds-nav {
+    display: flex;
+    gap: 2px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .ds-nav::-webkit-scrollbar { display: none; }
+
+  .nav-btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: none;
+    border: 1px solid transparent;
+    color: var(--muted);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: all 0.15s;
+    letter-spacing: 0.03em;
+  }
+  .nav-btn:hover { color: var(--text); border-color: var(--border-accent); }
+  .nav-btn.active { color: var(--green); border-color: var(--green-dim); background: rgba(57,255,132,0.05); }
+
+  /* ─── CONTENT ─── */
+  .ds-content { padding: 32px 20px; max-width: 860px; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .section-desc {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 580px;
+  }
+
+  /* ─── GRID ─── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 600px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ─── CARD ─── */
+  .ds-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+  }
+  .card-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* ─── COLORS ─── */
+  .color-swatch {
+    height: 48px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-end;
+    padding: 6px 8px;
+    font-family: var(--mono);
+    font-size: 10px;
+  }
+  .color-name { font-family: var(--mono); font-size: 11px; color: var(--text); margin-bottom: 2px; }
+  .color-hex { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+
+  /* ─── TYPOGRAPHY ─── */
+  .type-row {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .type-row:last-child { border-bottom: none; }
+  .type-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── ASCII DEMO ─── */
+  .ascii-block {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--green);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green-dim);
+    padding: 16px;
+    border-radius: 2px;
+    white-space: pre;
+    overflow-x: auto;
+  }
+
+  /* ─── TOKENS ─── */
+  .token-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+  }
+  .token-row:last-child { border-bottom: none; }
+  .token-name { font-family: var(--mono); font-size: 12px; color: var(--text); }
+  .token-value { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .token-preview { flex-shrink: 0; }
+
+  /* ─── ANIMATIONS ─── */
+  .anim-demo {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes scanline { 0%{transform:translateY(-100%)} 100%{transform:translateY(400%)} }
+  @keyframes glitch {
+    0%,100% { clip-path: inset(0 0 98% 0); transform: translateX(0); }
+    20% { clip-path: inset(20% 0 60% 0); transform: translateX(-4px); }
+    40% { clip-path: inset(50% 0 30% 0); transform: translateX(4px); }
+    60% { clip-path: inset(10% 0 80% 0); transform: translateX(-2px); }
+    80% { clip-path: inset(70% 0 10% 0); transform: translateX(3px); }
+  }
+  @keyframes typewriter { from { width: 0 } to { width: 100% } }
+  @keyframes fadeup { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes pulse-border { 0%,100% { border-color: var(--green-dim); } 50% { border-color: var(--green); } }
+  @keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+  @keyframes spin-slow { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+
+  .cursor-blink {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background: var(--green);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+  }
+
+  .typewriter-demo {
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--green);
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typewriter 2.5s steps(28) infinite;
+    border-right: 2px solid var(--green);
+  }
+
+  .glitch-text {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+  .glitch-text::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--red);
+    animation: glitch 3s infinite;
+  }
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    top: 0;
+    color: var(--blue);
+    animation: glitch 3s infinite 0.1s;
+    opacity: 0.7;
+  }
+
+  .fadeup-demo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    animation: fadeup 1s ease forwards infinite;
+  }
+
+  .pulse-card {
+    border: 1px solid var(--green-dim);
+    border-radius: 3px;
+    padding: 10px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--green);
+    animation: pulse-border 2s ease infinite;
+  }
+
+  .shimmer-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 1px solid var(--green-dim);
+    background: linear-gradient(90deg, var(--bg2) 25%, rgba(57,255,132,0.1) 50%, var(--bg2) 75%);
+    background-size: 200% 100%;
+    color: var(--green);
+    animation: shimmer 2s linear infinite;
+    cursor: pointer;
+  }
+
+  /* ─── COMPONENTS ─── */
+  .comp-btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: var(--bg);
+    border: 1px solid var(--green);
+    font-weight: 700;
+  }
+  .btn-primary:hover { background: transparent; color: var(--green); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border-accent);
+  }
+  .btn-outline:hover { border-color: var(--text); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid transparent;
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border); }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    display: inline-block;
+  }
+  .badge-green { background: rgba(57,255,132,0.1); color: var(--green); border: 1px solid var(--green-dim); }
+  .badge-amber { background: rgba(245,166,35,0.1); color: var(--amber); border: 1px solid var(--amber-dim); }
+  .badge-blue { background: rgba(77,171,247,0.1); color: var(--blue); border: 1px solid var(--blue-dim); }
+  .badge-muted { background: var(--bg3); color: var(--muted); border: 1px solid var(--border); }
+
+  .input-demo {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: 2px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input-demo:focus { border-color: var(--green); }
+  .input-demo::placeholder { color: var(--muted); }
+
+  .nav-demo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 20px;
+    background: rgba(10,10,10,0.9);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    backdrop-filter: blur(8px);
+  }
+  .nav-demo-logo { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--green); }
+  .nav-demo-links { display: flex; gap: 20px; margin-left: auto; }
+  .nav-demo-link { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; text-decoration: none; cursor: pointer; }
+  .nav-demo-link:hover { color: var(--green); }
+
+  /* ─── LAYOUT SECTION ─── */
+  .layout-wireframe {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .wire-block {
+    border: 1px dashed var(--subtle);
+    border-radius: 2px;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 36px;
+  }
+  .wire-block.hero { min-height: 80px; border-color: var(--green-dim); color: var(--green); }
+  .wire-block.accent { border-color: var(--amber-dim); color: var(--amber); }
+  .wire-block-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .wire-inner { border: 1px dashed var(--subtle); border-radius: 2px; padding: 8px; min-height: 52px; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+
+  /* ─── DIVIDER ─── */
+  .ds-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  /* ─── ROW ─── */
+  .flex-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  /* ─── SCANLINE effect ─── */
+  .scanline-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(transparent, rgba(57,255,132,0.15), transparent);
+    animation: scanline 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* spacing */
+  .mt-8 { margin-top: 8px; }
+  .mt-16 { margin-top: 16px; }
+  .mt-24 { margin-top: 24px; }
+  .mb-8 { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<nav class="ds-nav">
+  <button class="nav-btn active" onclick="show('colors')">[ colors ]</button>
+  <button class="nav-btn" onclick="show('type')">[ typography ]</button>
+  <button class="nav-btn" onclick="show('tokens')">[ tokens ]</button>
+  <button class="nav-btn" onclick="show('anim')">[ animations ]</button>
+  <button class="nav-btn" onclick="show('components')">[ components ]</button>
+  <button class="nav-btn" onclick="show('layout')">[ layout ]</button>
+  <button class="nav-btn" onclick="show('ascii')">[ ascii art ]</button>
+</nav>
+
+<div class="ds-content">
+
+<!-- ═══════════ COLORS ═══════════ -->
+<div class="section active" id="sec-colors">
+  <div class="section-header">
+    <div class="tag">// 01 — PALETTE</div>
+    <div class="section-title">Color System</div>
+    <div class="section-desc">Terminal-dark foundation with phosphor-green as the signature accent. Secondary signals use amber and blue — all against near-black backgrounds for maximum contrast and CRT authenticity.</div>
+  </div>
+
+  <div class="grid-3">
+    <div>
+      <div class="color-swatch" style="background:#0a0a0a; border: 1px solid #2a2a2a;">
+        <span style="font-family:var(--mono);font-size:10px;color:#3d3b37">--bg</span>
+      </div>
+      <div class="color-name">Void</div>
+      <div class="color-hex">#0a0a0a · base</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:#111111; border: 1px solid #2a2a2a;">
+        <span style="font-family:var(--mono);font-size:10px;color:#3d3b37">--bg2</span>
+      </div>
+      <div class="color-name">Surface</div>
+      <div class="color-hex">#111111 · cards</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:#1a1a1a; border: 1px solid #2a2a2a;">
+        <span style="font-family:var(--mono);font-size:10px;color:#3d3b37">--bg3</span>
+      </div>
+      <div class="color-name">Raised</div>
+      <div class="color-hex">#1a1a1a · hover</div>
+    </div>
+  </div>
+
+  <div class="mt-16 grid-3">
+    <div>
+      <div class="color-swatch" style="background:#39ff84;">
+        <span style="font-family:var(--mono);font-size:10px;color:#0a1a0f">PRIMARY</span>
+      </div>
+      <div class="color-name">Phosphor Green</div>
+      <div class="color-hex">#39ff84 · CTAs, active</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:#1a7a3e;">
+        <span style="font-family:var(--mono);font-size:10px;color:#39ff84">DIM</span>
+      </div>
+      <div class="color-name">Green Dim</div>
+      <div class="color-hex">#1a7a3e · borders</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:rgba(57,255,132,0.07); border:1px solid #1a7a3e;">
+        <span style="font-family:var(--mono);font-size:10px;color:#39ff84">TINT</span>
+      </div>
+      <div class="color-name">Green Tint</div>
+      <div class="color-hex">rgba(57,255,132,.07)</div>
+    </div>
+  </div>
+
+  <div class="mt-16 grid-3">
+    <div>
+      <div class="color-swatch" style="background:#f5a623;">
+        <span style="font-family:var(--mono);font-size:10px;color:#2a1a00">WARN</span>
+      </div>
+      <div class="color-name">Amber</div>
+      <div class="color-hex">#f5a623 · warnings, tags</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:#4dabf7;">
+        <span style="font-family:var(--mono);font-size:10px;color:#041a30">INFO</span>
+      </div>
+      <div class="color-name">Electric Blue</div>
+      <div class="color-hex">#4dabf7 · links, info</div>
+    </div>
+    <div>
+      <div class="color-swatch" style="background:#ff5f57;">
+        <span style="font-family:var(--mono);font-size:10px;color:#1a0a09">ERROR</span>
+      </div>
+      <div class="color-name">Terminal Red</div>
+      <div class="color-hex">#ff5f57 · errors, glitch</div>
+    </div>
+  </div>
+
+  <div class="mt-24 ds-card">
+    <div class="card-label">TEXT HIERARCHY</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--text);padding:8px 0;border-bottom:1px solid var(--border)">#e8e6e0 — Primary text</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--border)">#6b6965 — Muted / secondary</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--subtle);padding:8px 0">#3d3b37 — Disabled / decorative</div>
+  </div>
+
+  <div class="mt-16 ds-card">
+    <div class="card-label">USAGE RULES</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.8">
+      <span style="color:var(--green);font-family:var(--mono)">green</span> → active states, CTAs, cursor, success<br>
+      <span style="color:var(--amber);font-family:var(--mono)">amber</span> → tech stack badges, in-progress, hover accents<br>
+      <span style="color:var(--blue);font-family:var(--mono)">blue</span> → external links, info text, subtle highlights<br>
+      <span style="color:var(--red);font-family:var(--mono)">red</span> → glitch effect only, errors (use sparingly)
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ TYPOGRAPHY ═══════════ -->
+<div class="section" id="sec-type">
+  <div class="section-header">
+    <div class="tag">// 02 — TYPE</div>
+    <div class="section-title">Typography</div>
+    <div class="section-desc">Two typefaces in constant tension. Space Mono for identity, code, and labels. DM Sans for readability at body sizes. Never use a third font.</div>
+  </div>
+
+  <div class="grid-2 mb-16">
+    <div class="ds-card">
+      <div class="card-label">DISPLAY FONT</div>
+      <div style="font-family:var(--mono);font-size:28px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:8px">Space Mono</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--muted)">google/space-mono<br>weights: 400, 700</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--green);margin-top:8px">→ headings, nav, labels, code</div>
+    </div>
+    <div class="ds-card">
+      <div class="card-label">BODY FONT</div>
+      <div style="font-family:var(--sans);font-size:28px;font-weight:300;color:var(--text);line-height:1.1;margin-bottom:8px">DM Sans</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--muted)">google/dm-sans<br>weights: 300, 400, 500, 600</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--green);margin-top:8px">→ body, descriptions, prose</div>
+    </div>
+  </div>
+
+  <div class="ds-card">
+    <div class="card-label">TYPE SCALE</div>
+    <div class="type-row">
+      <div class="type-meta">MONO · 48px · 700 · --display</div>
+      <div style="font-family:var(--mono);font-size:40px;font-weight:700;color:var(--text);line-height:1">&lt;hero /&gt;</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">MONO · 28px · 700 · --h1</div>
+      <div style="font-family:var(--mono);font-size:26px;font-weight:700;color:var(--text)">Section Title</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">MONO · 18px · 400 · --h2</div>
+      <div style="font-family:var(--mono);font-size:17px;color:var(--text)">Project Name</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">MONO · 13px · 400 · --label</div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--muted)">// METADATA · DATE · TAG</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">SANS · 16px · 400 · --body</div>
+      <div style="font-family:var(--sans);font-size:15px;color:var(--muted);max-width:260px">Building fast, scalable systems for the modern web. Backend & frontend.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-meta">MONO · 12px · 400 · --code</div>
+      <div style="font-family:var(--mono);font-size:12px;color:var(--green)">const dev = { passion: true };</div>
+    </div>
+  </div>
+
+  <div class="mt-16 ds-card">
+    <div class="card-label">ASCII TEXTURE HEADING</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--subtle);letter-spacing:0.05em">▓▒░ YOUR NAME ░▒▓</div>
+    <div style="font-family:var(--mono);font-size:24px;font-weight:700;color:var(--text)">FULL STACK ENGINEER</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">─────────────────────────────</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--muted)">4yr experience · backend · react</div>
+  </div>
+</div>
+
+<!-- ═══════════ TOKENS ═══════════ -->
+<div class="section" id="sec-tokens">
+  <div class="section-header">
+    <div class="tag">// 03 — TOKENS</div>
+    <div class="section-title">Design Tokens</div>
+    <div class="section-desc">Every spacing, radius, and timing value defined. Use only these values — no magic numbers.</div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">SPACING SCALE</div>
+    <div class="token-row">
+      <div class="token-name">--space-xs</div>
+      <div class="token-value">4px</div>
+      <div class="token-preview"><div style="width:4px;height:12px;background:var(--green);opacity:0.7"></div></div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--space-sm</div>
+      <div class="token-value">8px</div>
+      <div class="token-preview"><div style="width:8px;height:12px;background:var(--green);opacity:0.7"></div></div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--space-md</div>
+      <div class="token-value">16px</div>
+      <div class="token-preview"><div style="width:16px;height:12px;background:var(--green);opacity:0.7"></div></div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--space-lg</div>
+      <div class="token-value">32px</div>
+      <div class="token-preview"><div style="width:32px;height:12px;background:var(--green);opacity:0.7"></div></div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--space-xl</div>
+      <div class="token-value">64px</div>
+      <div class="token-preview"><div style="width:64px;height:12px;background:var(--green);opacity:0.7"></div></div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--space-2xl</div>
+      <div class="token-value">120px</div>
+      <div class="token-preview"><div style="width:80px;height:12px;background:var(--green);opacity:0.4;position:relative"><span style="font-family:var(--mono);font-size:9px;color:var(--green);position:absolute;right:-20px;top:1px">120</span></div></div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="ds-card">
+      <div class="card-label">BORDER RADIUS</div>
+      <div class="token-row">
+        <div class="token-name">--radius-none</div>
+        <div class="token-preview"><div style="width:28px;height:28px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:0"></div></div>
+      </div>
+      <div class="token-row">
+        <div class="token-name">--radius-sm (2px)</div>
+        <div class="token-preview"><div style="width:28px;height:28px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:2px"></div></div>
+      </div>
+      <div class="token-row">
+        <div class="token-name">--radius-md (4px)</div>
+        <div class="token-preview"><div style="width:28px;height:28px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:4px"></div></div>
+      </div>
+      <div class="token-row" style="border:none">
+        <div class="token-name">--radius-lg (8px)</div>
+        <div class="token-preview"><div style="width:28px;height:28px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:8px"></div></div>
+      </div>
+    </div>
+    <div class="ds-card">
+      <div class="card-label">MOTION</div>
+      <div class="token-row">
+        <div><div class="token-name">--ease-instant</div><div class="token-value">80ms linear</div></div>
+      </div>
+      <div class="token-row">
+        <div><div class="token-name">--ease-fast</div><div class="token-value">150ms ease</div></div>
+      </div>
+      <div class="token-row">
+        <div><div class="token-name">--ease-base</div><div class="token-value">250ms ease</div></div>
+      </div>
+      <div class="token-row">
+        <div><div class="token-name">--ease-slow</div><div class="token-value">500ms ease-out</div></div>
+      </div>
+      <div class="token-row" style="border:none">
+        <div><div class="token-name">--ease-reveal</div><div class="token-value">800ms cubic-bezier(.16,1,.3,1)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-16 ds-card">
+    <div class="card-label">BORDER STYLES</div>
+    <div class="token-row">
+      <div class="token-name">--border-base</div>
+      <div style="flex:1;border-top:1px solid var(--border);margin:0 12px"></div>
+      <div class="token-value">1px solid #2a2a2a</div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">--border-accent</div>
+      <div style="flex:1;border-top:1px solid var(--green-dim);margin:0 12px"></div>
+      <div class="token-value">1px solid #1a7a3e</div>
+    </div>
+    <div class="token-row" style="border:none">
+      <div class="token-name">--border-glow</div>
+      <div style="flex:1;border-top:1px solid var(--green);margin:0 12px"></div>
+      <div class="token-value">1px solid #39ff84</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ANIMATIONS ═══════════ -->
+<div class="section" id="sec-anim">
+  <div class="section-header">
+    <div class="tag">// 04 — MOTION</div>
+    <div class="section-title">Animations</div>
+    <div class="section-desc">Animations should feel like a terminal waking up — purposeful, mechanical, and slightly retro. Every motion should justify itself.</div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <div class="ds-card" style="margin-bottom:12px">
+        <div class="card-label">CURSOR BLINK</div>
+        <div class="anim-demo scanline-container">
+          <span style="font-family:var(--mono);font-size:18px;color:var(--text)">$ hello world</span><span class="cursor-blink"></span>
+        </div>
+        <div class="token-value">Use in hero section after typewriter effect</div>
+      </div>
+      <div class="ds-card" style="margin-bottom:12px">
+        <div class="card-label">TYPEWRITER</div>
+        <div class="anim-demo">
+          <div class="typewriter-demo">backend + frontend engineer</div>
+        </div>
+        <div class="token-value">Cycle through roles/skills on load</div>
+      </div>
+      <div class="ds-card">
+        <div class="card-label">FADE UP REVEAL</div>
+        <div class="anim-demo">
+          <div class="fadeup-demo" style="animation-duration:2s;animation-iteration-count:infinite">[ section content ]</div>
+        </div>
+        <div class="token-value">Scroll-triggered on all content blocks</div>
+      </div>
+    </div>
+    <div>
+      <div class="ds-card" style="margin-bottom:12px">
+        <div class="card-label">GLITCH EFFECT</div>
+        <div class="anim-demo" style="cursor:pointer">
+          <div class="glitch-text" data-text="&lt;YourName /&gt;">&lt;YourName /&gt;</div>
+        </div>
+        <div class="token-value">Hover state on name/logo only</div>
+      </div>
+      <div class="ds-card" style="margin-bottom:12px">
+        <div class="card-label">PULSE BORDER</div>
+        <div class="anim-demo">
+          <div class="pulse-card">STATUS: AVAILABLE FOR WORK</div>
+        </div>
+        <div class="token-value">Available-for-work indicator</div>
+      </div>
+      <div class="ds-card">
+        <div class="card-label">SHIMMER LOAD</div>
+        <div class="anim-demo">
+          <button class="shimmer-btn">[ VIEW PROJECT ]</button>
+        </div>
+        <div class="token-value">CTA buttons, loading skeleton</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-16 ds-card">
+    <div class="card-label">SCANLINE OVERLAY</div>
+    <div class="anim-demo scanline-container" style="min-height:60px;background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%)">
+      <span style="font-family:var(--mono);font-size:14px;color:var(--green)">[ scanline texture on hero section ]</span>
+    </div>
+    <div class="token-value" style="margin-top:8px">Subtle moving scanline on hero — ::after with background + translateY animation</div>
+  </div>
+</div>
+
+<!-- ═══════════ COMPONENTS ═══════════ -->
+<div class="section" id="sec-components">
+  <div class="section-header">
+    <div class="tag">// 05 — COMPONENTS</div>
+    <div class="section-title">UI Components</div>
+    <div class="section-desc">Every component uses monospace for labels and identity text. Borders are always 1px — never thick. Corner radius stays at 0–4px to maintain the terminal feel.</div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">NAVIGATION</div>
+    <div class="nav-demo">
+      <div class="nav-demo-logo">YN_</div>
+      <div class="nav-demo-links">
+        <span class="nav-demo-link">./about</span>
+        <span class="nav-demo-link">./work</span>
+        <span class="nav-demo-link">./stack</span>
+        <span class="nav-demo-link" style="color:var(--green)">./contact ▶</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">BUTTONS</div>
+    <div class="flex-row">
+      <button class="comp-btn btn-primary">[ HIRE ME ]</button>
+      <button class="comp-btn btn-outline">[ VIEW WORK ]</button>
+      <button class="comp-btn btn-ghost">// about →</button>
+    </div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">BADGES / TAGS</div>
+    <div class="flex-row">
+      <span class="badge badge-green">REACT</span>
+      <span class="badge badge-green">NODE.JS</span>
+      <span class="badge badge-amber">RUST</span>
+      <span class="badge badge-blue">POSTGRESQL</span>
+      <span class="badge badge-muted">DOCKER</span>
+      <span class="badge badge-blue">TYPESCRIPT</span>
+      <span class="badge badge-muted">AWS</span>
+    </div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">INPUTS</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input class="input-demo" placeholder="// your@email.com" type="email">
+      <input class="input-demo" placeholder="// message..." type="text">
+    </div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">PROJECT CARD</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:20px;transition:border-color 0.2s" onmouseenter="this.style.borderColor='var(--green-dim)'" onmouseleave="this.style.borderColor='var(--border)'">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted)">01 / PROJECT</div>
+        <div style="display:flex;gap:6px">
+          <span class="badge badge-green">REACT</span>
+          <span class="badge badge-blue">NODE</span>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--text);margin-bottom:8px">ProjectName_</div>
+      <div style="font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px">A high-performance backend service handling 50k req/s with real-time processing and zero-downtime deploys.</div>
+      <div style="display:flex;gap:12px">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--green);cursor:pointer">[ LIVE ↗ ]</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--muted);cursor:pointer">[ GITHUB ]</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-card">
+    <div class="card-label">SKILL BAR</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-family:var(--mono);font-size:11px;color:var(--text)">Node.js / Express</span>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--green)">████████░░ 90%</span>
+        </div>
+        <div style="height:3px;background:var(--border);border-radius:0"><div style="width:90%;height:100%;background:var(--green)"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-family:var(--mono);font-size:11px;color:var(--text)">React / Next.js</span>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--amber)">███████░░░ 80%</span>
+        </div>
+        <div style="height:3px;background:var(--border);border-radius:0"><div style="width:80%;height:100%;background:var(--amber)"></div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+          <span style="font-family:var(--mono);font-size:11px;color:var(--text)">PostgreSQL</span>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--blue)">██████░░░░ 75%</span>
+        </div>
+        <div style="height:3px;background:var(--border);border-radius:0"><div style="width:75%;height:100%;background:var(--blue)"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LAYOUT ═══════════ -->
+<div class="section" id="sec-layout">
+  <div class="section-header">
+    <div class="tag">// 06 — LAYOUT</div>
+    <div class="section-title">Page Structure</div>
+    <div class="section-desc">Single long-scroll page divided into 6 distinct sections. Each section has a mono-labeled header and full viewport-width treatment.</div>
+  </div>
+
+  <div class="ds-card mb-16">
+    <div class="card-label">RECOMMENDED SECTIONS</div>
+    <div style="display:flex;flex-direction:column;gap:0">
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">01</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">HERO</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">Name + role typewriter + tagline + CTA. Full viewport, scanline overlay.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">02</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">ABOUT</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">2-column: ASCII art avatar left, bio + stats right.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">03</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">PROJECTS</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">3-column card grid. Featured project spans full width on top.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">04</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">STACK</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">Tech grid with ASCII blocks per skill area + animated progress bars.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">05</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">EXPERIENCE</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">Terminal-style timeline with company, role, and duration.</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;padding:12px 0">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--green);min-width:24px">06</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text);min-width:100px">CONTACT</div>
+        <div style="font-family:var(--sans);font-size:13px;color:var(--muted)">Minimal form + social links in terminal prompt style.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-wireframe">
+    <div class="card-label" style="margin-bottom:12px">WIREFRAME PREVIEW</div>
+    <div class="wire-block hero">
+      <span>01 / HERO — typewriter + CTA</span>
+      <span>100vh</span>
+    </div>
+    <div class="wire-block">
+      <span>02 / ABOUT — 2-col bio</span>
+      <span>auto</span>
+    </div>
+    <div style="margin-bottom:8px">
+      <div class="wire-block accent" style="margin-bottom:8px"><span>03 / PROJECTS — featured</span><span>full</span></div>
+      <div class="wire-block-grid">
+        <div class="wire-inner">proj</div>
+        <div class="wire-inner">proj</div>
+        <div class="wire-inner">proj</div>
+      </div>
+    </div>
+    <div class="wire-block">
+      <span>04 / STACK — tech grid</span>
+      <span>auto</span>
+    </div>
+    <div class="wire-block">
+      <span>05 / EXPERIENCE — timeline</span>
+      <span>auto</span>
+    </div>
+    <div class="wire-block accent">
+      <span>06 / CONTACT — form + links</span>
+      <span>auto</span>
+    </div>
+  </div>
+
+  <div class="mt-16 ds-card">
+    <div class="card-label">GRID SYSTEM</div>
+    <div class="token-row">
+      <div class="token-name">Max width</div>
+      <div class="token-value">1100px centered</div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">Horizontal padding</div>
+      <div class="token-value">24px mobile / 48px desktop</div>
+    </div>
+    <div class="token-row">
+      <div class="token-name">Column gap</div>
+      <div class="token-value">24px</div>
+    </div>
+    <div class="token-row" style="border:none">
+      <div class="token-name">Section gap</div>
+      <div class="token-value">120px between sections</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ASCII ART ═══════════ -->
+<div class="section" id="sec-ascii">
+  <div class="section-header">
+    <div class="tag">// 07 — ASCII</div>
+    <div class="section-title">ASCII Patterns</div>
+    <div class="section-desc">Decorative ASCII constructs used as texture, not noise. Copy and adapt these patterns for section dividers, the about section, and terminal UI chrome.</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="ds-card">
+      <div class="card-label">SECTION DIVIDER</div>
+      <div class="ascii-block">╔══════════════════════════════════════╗
+║  // PROJECTS                         ║
+║  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ║
+╚══════════════════════════════════════╝</div>
+    </div>
+
+    <div class="ds-card">
+      <div class="card-label">AVATAR / SELF PORTRAIT</div>
+      <div class="ascii-block">┌─────────────────┐
+│  ██████████████ │
+│  █  ▓▓▓▓▓▓  █  │
+│  █ ▓ ◉  ◉ ▓ █  │
+│  █  ▓  ▲  ▓ █  │
+│  █   ▓▓▓▓▓  █  │
+│  ██████████████ │
+└─────────────────┘
+   &lt;your_name /&gt;   </div>
+    </div>
+
+    <div class="ds-card">
+      <div class="card-label">TERMINAL PROMPT STYLE</div>
+      <div class="ascii-block">yourname@portfolio:~$ whoami
+→ Full Stack Engineer · 4yr exp
+
+yourname@portfolio:~$ cat skills.txt
+→ Node.js · React · PostgreSQL · Docker
+
+yourname@portfolio:~$ git log --oneline
+→ a4f2c1d Built real-time dashboard
+→ 7e3b9a2 Optimized API 60% latency
+→ 2d8f4e0 Shipped v2.0 to production</div>
+    </div>
+
+    <div class="ds-card">
+      <div class="card-label">EXPERIENCE TIMELINE</div>
+      <div class="ascii-block">2024 ─── Senior Engineer @ Company
+         │   ├── Built X, scaled to 1M users
+         │   └── Led team of 4 engineers
+         │
+2022 ─── Engineer @ StartupName
+         │   ├── Full-stack feature dev
+         │   └── React + Node microservices
+         │
+2020 ─── Junior Dev @ AgencyName
+              └── First production deploys ▓</div>
+    </div>
+
+    <div class="ds-card">
+      <div class="card-label">TECH STACK DISPLAY</div>
+      <div class="ascii-block">┌──BACKEND──┐  ┌──FRONTEND─┐  ┌──INFRA────┐
+│ Node.js   │  │ React     │  │ Docker    │
+│ Express   │  │ Next.js   │  │ AWS EC2   │
+│ Postgres  │  │ Tailwind  │  │ Nginx     │
+│ Redis     │  │ Zustand   │  │ CI/CD     │
+└───────────┘  └───────────┘  └───────────┘</div>
+    </div>
+
+    <div class="ds-card">
+      <div class="card-label">STATUS INDICATOR</div>
+      <div class="ascii-block">▶ STATUS ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ● AVAILABLE FOR OPPORTUNITIES
+  ◐ OPEN TO REMOTE / HYBRID
+  ○ BASED IN [YOUR CITY]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
