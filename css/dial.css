@@ -1,0 +1,69 @@
+.dial-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+.dial-mask {
+    width: 320px;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}
+
+.dial-wheel {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    cursor: grab;
+    transform: translateZ(0);
+}
+
+.dial-wheel:active {
+    cursor: grabbing;
+}
+
+.tick {
+    position: absolute;
+    width: 4px;
+    height: 25px;
+    background-color: var(--phosphor-dim);
+    left: 158px;
+    top: 0;
+    transform-origin: 2px 160px;
+    border-radius: 2px;
+}
+
+.tick.major {
+    height: 35px;
+    background-color: var(--phosphor);
+}
+
+.year-display {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.year-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+}
+
+.year-value {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin-top: -5px;
+    /* Slight transition for smoother visual updates */
+    transition: color 0.1s;
+}
+
+/* Quick highlight effect when year changes */
+.year-value.changed {
+    color: #4caf50;
+}

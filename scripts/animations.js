@@ -137,14 +137,14 @@ const navObs = new IntersectionObserver(
 sections.forEach((s) => navObs.observe(s));
 
 // tamagotchi screen border effect
-const tamagotchiContainer = document.querySelector(".tamagotchi-container");
-const lightBeam = document.querySelector(".light-beam");
-tamagotchiContainer.addEventListener("mousemove", (e) => {
-    // const centerX = tamagotchiContainer.cli / 2;
-    // const centerY = tamagotchiContainer.offsetY / 2;
-    const mx = e.offsetX;
-    const my = e.offsetY;
-    // console.log(tamagotchiContainer.clientTop, mx, my);
-    lightBeam.style.transform = `translate(${mx}px, ${my}px)`;
-    // const dist = calculateDistance2({ x1: centerX, y1: centerY, x2: mx, y2: my });
-});
+// const tamagotchiContainer = document.querySelector(".tamagotchi-container");
+// const lightBeam = document.querySelector(".light-beam");
+// tamagotchiContainer.addEventListener("pointermove", (e) => {
+//     // const centerX = tamagotchiContainer.cli / 2;
+//     // const centerY = tamagotchiContainer.offsetY / 2;
+//     const mx = e.offsetX;
+//     const my = e.offsetY;
+//     // console.log(tamagotchiContainer.clientTop, mx, my);
+//     lightBeam.style.transform = `translate(${mx}px, ${my}px)`;
+//     // const dist = calculateDistance2({ x1: centerX, y1: centerY, x2: mx, y2: my });
+// });

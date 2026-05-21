@@ -13,6 +13,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href="./css/dial.css" />
         <!-- <link rel="stylesheet" href="./css/crt.css" /> -->
 
         <script src="./scripts/p5.min.js"></script>
@@ -85,15 +86,15 @@
                 <!-- stats row -->
                 <div class="grid grid-cols-3 md:grid-cols-3 gap-6 max-w-lg animate-fadeup" style="animation-delay: 0.8s">
                     <div class="border-l-2 border-phosphor-dim pl-4">
-                        <div class="font-mono text-2xl font-bold text-text">3.6+</div>
+                        <div class="font-mono text-3xl font-bold text-text">3.6+</div>
                         <div class="font-mono text-xs text-muted mt-1">YRS EXP</div>
                     </div>
                     <div class="border-l-2 border-phosphor-dim pl-4">
-                        <div class="font-mono text-2xl font-bold text-text">10+</div>
+                        <div class="font-mono text-3xl font-bold text-text">10+</div>
                         <div class="font-mono text-xs text-muted mt-1">PROJECTS</div>
                     </div>
                     <div class="border-l-2 border-phosphor-dim pl-4">
-                        <div class="font-mono text-2xl font-bold text-text">∞</div>
+                        <div class="font-mono text-3xl font-bold text-text">∞</div>
                         <div class="font-mono text-xs text-muted mt-1">COMMITS</div>
                     </div>
                 </div>
@@ -113,12 +114,12 @@
             <!-- main content for about me -->
             <div class="max-w-7xl mx-auto px-6">
                 <!-- label -->
-                <div class="section-label reveal mb-12">// 02 — ABOUT ME</div>
+                <div class="section-label reveal mb-12 scramble-text" data-value="// 02 — ABOUT ME">// 02 — ABOUT ME</div>
 
                 <div class="grid md:grid-cols-2 gap-16 items-start">
                     <!-- ASCII art + terminal -->
                     <div class="tamagotchi-container">
-                        <div class="light-beam"></div>
+                        <!-- <div class="light-beam"></div> -->
                         <div class="reveal tamagotchi-screen">
                             <div class="terminal rounded-none">
                                 <div class="terminal-bar">
@@ -140,15 +141,15 @@
 │   ▓                     ▓   │
 │   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓   │
 └─────────────────────────────┘
-         &lt; aniket chauhan /&gt;
+      &lt; aniket chauhan /&gt;
 </pre>
                                     <div class="space-y-1">
-                                        <div class="font-mono text-xs"><span class="text-phosphor">$</span> <span class="text-muted">whoami</span></div>
-                                        <div class="font-mono text-xs text-subtle pl-4">→ Full Stack Engineer · 3.6+yr · New Delhi</div>
-                                        <div class="font-mono text-xs mt-2"><span class="text-phosphor">$</span> <span class="text-muted">cat interests.txt</span></div>
-                                        <div class="font-mono text-xs text-subtle pl-4">→ Backend architecture, Angular, APIs</div>
-                                        <div class="font-mono text-xs mt-2"><span class="text-phosphor">$</span> <span class="text-muted">echo $STATUS</span></div>
-                                        <div class="font-mono text-xs text-phosphor pl-4 blink">→ AVAILABLE FOR OPPORTUNITIES</div>
+                                        <div class="font-mono text-lg"><span class="text-phosphor">$</span> <span class="text-muted">whoami</span></div>
+                                        <div class="font-mono text-md text-subtle pl-4">→ Full Stack Engineer · 3.6+yr · New Delhi</div>
+                                        <div class="font-mono text-lg mt-4"><span class="text-phosphor">$</span> <span class="text-muted">cat interests.txt</span></div>
+                                        <div class="font-mono text-md text-subtle pl-4">→ Backend architecture, Performance optimization, Computer internals</div>
+                                        <div class="font-mono text-lg mt-4"><span class="text-phosphor">$</span> <span class="text-muted">echo $STATUS</span></div>
+                                        <div class="font-mono text-md text-phosphor pl-4 blink pt-2">→ AVAILABLE FOR OPPORTUNITIES</div>
                                     </div>
                                 </div>
                             </div>
@@ -156,22 +157,24 @@
                     </div>
 
                     <!-- bio -->
-                    <div class="reveal reveal-delay-2 space-y-6">
-                        <h2 class="font-mono text-2xl font-bold text-text">
-                            Building things<br />
-                            <span class="text-phosphor">that scale.</span>
+                    <div id="bio" class="reveal reveal-delay-2 space-y-6">
+                        <h2 class="font-mono text-3xl font-bold text-text">
+                            <span class="scramble-text" data-value="Building things"> Building things </span><br />
+                            <!-- <div class="scramble-text" data-value="stagger">stagger</div> -->
+
+                            <span class="text-phosphor scramble-text" data-value="that scale.">that scale.</span>
                         </h2>
 
-                        <p class="font-sans text-muted text-sm leading-relaxed">
+                        <p class="font-sans text-muted text-md leading-relaxed">
                             I'm Aniket Chauhan, a backend-heavy full-stack engineer based in Delhi NCR with 3.6+ years of experience building and shipping production systems that scale. I specialize
                             in Node.js, TypeScript, and cloud infrastructure — architecting multi-tenant SaaS platforms, high-throughput REST APIs, and real-time pipelines across wellness, healthcare
                             and ERP products.
                         </p>
-                        <p class="font-sans text-muted text-sm leading-relaxed">
+                        <p class="font-sans text-muted text-md leading-relaxed">
                             From optimizing MySQL queries to reducing API latency by ~30%, to integrating payment gateways, live-streaming pipelines, and WhatsApp Business APIs — I've owned full
                             product verticals end to end. I write clean, purposeful code and thrive in fast-moving teams where ownership is real and the work ships.
                         </p>
-                        <p class="font-sans text-muted text-sm leading-relaxed">If you need someone who figures things out and sees them through — I'm your guy.</p>
+                        <p class="font-sans text-muted text-md leading-relaxed">If you need someone who figures things out and sees them through — I'm your guy.</p>
 
                         <!-- tags -->
                         <div class="flex flex-wrap gap-2 pt-2">
@@ -194,8 +197,11 @@
   ════════════════════════════════════════ -->
         <section id="projects" class="py-32 border-t border-border">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="section-label reveal mb-4">// 03 — SELECTED WORK</div>
-                <h2 class="font-mono text-3xl font-bold text-text reveal mb-16">Projects<span class="text-phosphor">_</span></h2>
+                <div class="section-label reveal mb-4 scramble-text" data-value="// 03 — SELECTED WORK">// 03 — SELECTED WORK</div>
+                <h2 class="font-mono text-5xl font-bold text-text reveal mb-16">
+                    <span class="scramble-text" data-value="Projects">Projects</span>
+                    <span class="text-phosphor">_</span>
+                </h2>
 
                 <!-- featured project -->
                 <div class="project-card reveal mb-6 p-8 md:p-10 relative overflow-hidden" style="animation-delay: 0.1s">
@@ -234,7 +240,7 @@
                                     <div><span class="text-phosphor">●</span> 99.9% uptime</div>
                                     <div><span class="text-electric">◆</span> Pipelines for payments, inventory, billing and notifications</div>
                                     <div><span class="text-amber">▲</span> ~30% perf gain over intial version</div>
-                                    <div><span class="text-electric">◆</span>Best security practices</div>
+                                    <div><span class="text-electric">◆</span> Best security practices</div>
                                     <div class="pt-2 text-subtle">──────────────────</div>
                                     <div><span class="text-phosphor">$</span> npm run deploy <span class="text-phosphor animate-blink">▋</span></div>
                                 </div>
@@ -381,8 +387,11 @@
         <!-- ════════════════════════════════════════TECH STACK════════════════════════════════════════ -->
         <section id="stack" class="py-32 border-t border-border">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="section-label reveal mb-4">// 04 — TECH STACK</div>
-                <h2 class="font-mono text-3xl font-bold text-text reveal mb-16">Skills<span class="text-phosphor">_</span></h2>
+                <div class="section-label reveal mb-4 scramble-text" data-value="// 04 — TECH STACK">// 04 — TECH STACK</div>
+                <h2 class="font-mono text-5xl font-bold text-text reveal mb-16">
+                    <span class="scramble-text" data-value="Skills">Skills</span>
+                    <span class="text-phosphor">_</span>
+                </h2>
 
                 <div class="grid md:grid-cols-3 gap-8 mb-16">
                     <!-- Backend -->
@@ -400,7 +409,8 @@
                                 <div><span class="text-subtle">├─</span> Javascript <span class="text-phosphor ml-1">9/10</span></div>
                                 <div><span class="text-subtle">├─</span> Go <span class="text-phosphor ml-1">7/10</span></div>
                                 <div><span class="text-subtle">├─</span> gRPC <span class="text-phosphor ml-1">7/10</span></div>
-                                <div><span class="text-subtle">├─</span> REST APIs <span class="text-phosphor ml-1">8.5/10</span></div>
+                                <div><span class="text-subtle">├─</span> Websocket/Socket.io <span class="text-phosphor ml-1">8/10</span></div>
+                                <div><span class="text-subtle">└─</span> REST APIs <span class="text-phosphor ml-1">8.5/10</span></div>
                             </div>
                         </div>
                     </div>
@@ -419,7 +429,7 @@
                                 <div><span class="text-subtle">├─</span> SCSS <span class="text-amber ml-1">7/10</span></div>
                                 <div><span class="text-subtle">├─</span> TypeScript <span class="text-amber ml-1">8/10</span></div>
                                 <div><span class="text-subtle">├─</span> Tailwind <span class="text-amber ml-1">9/10</span></div>
-                                <div><span class="text-subtle">└─</span> Angular Material <span class="text-amber ml-1">9/10</span></div>
+                                <div><span class="text-subtle">├─</span> Angular Material <span class="text-amber ml-1">9/10</span></div>
                                 <div><span class="text-subtle">└─</span> PrimeNG <span class="text-amber ml-1">7/10</span></div>
                             </div>
                         </div>
@@ -546,8 +556,97 @@
             </div>
         </section>
 
+        <!-- Work Experience -->
+        <section id="experiences" class="pt-32 border-t border-border">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="section-label reveal mb-4 scramble-text" data-value="// 05 — EXPERIENCE">// 05 — EXPERIENCE</div>
+                <h2 class="font-mono text-5xl font-bold text-text reveal mb-16">
+                    <div class="scramble-text" style="display: inline-block" data-value="Timeline">Timeline</div>
+                    <span class="text-phosphor">_</span>
+                </h2>
+
+                <!-- main expriences content area -->
+                <div class="experiences-container">
+                    <div class="timeline-container">
+                        <div class="experience-block" id="exp-1">
+                            <div class="exp-left">
+                                <div class="exp-year">JAN 2024 - FEB 2026</div>
+                                <h2 class="exp-company scramble-text" data-value="Logicasana">Logicasana</h2>
+
+                                <!-- <div class="ascii-decor">+------------------+ | UPTIME: 99.9% | | ENV: PRODUCTION | +------------------+</div> -->
+                            </div>
+
+                            <div class="timeline-node"></div>
+
+                            <div class="exp-right">
+                                <div class="brutal-card">
+                                    <div class="card-header">
+                                        <span class="prompt">~/$</span>
+                                        <h3 class="role-title">Full-stack Software Engineer</h3>
+                                        <span class="cursor"></span>
+                                    </div>
+
+                                    <ul class="summary-list">
+                                        <li>
+                                            Built the core backend of a wellness SaaS/ERP platform (lookzup.com) using Node.js, MySQL, Redis, and GCP — handling high-volume multi-tenant transactions
+                                            with RESTful APIs for Wallets, Payments, Inventory, Billing, and Employee management.
+                                        </li>
+                                        <li>
+                                            Cut API latency by 30% through MySQL indexing, optimized JOINs, lazy-loaded connection pooling. — also integrated Razorpay and PayPal with webhook
+                                            reconciliation, auto PDF invoicing, and real-time FCM/WhatsApp/Email notifications.
+                                        </li>
+                                        <li>
+                                            Created a pipeline to import data of businesses from previous platform to new Lookzup. Secured sensitive data using AES encryption at rest and kept the
+                                            platform privacy-compliant across all tenants.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- year Selection Dial  -->
+                <div class="dial-container">
+                    <div class="dial-mask">
+                        <div class="dial-wheel" id="dialWheel"></div>
+                    </div>
+                    <div class="year-display">
+                        <div class="year-label">Select Career Year</div>
+                        <div class="year-value" id="yearValue">2026</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src="./scripts/text-scrambeler.js"></script>
         <script src="./utils/distance-calculator.js"></script>
         <script src="./app.js"></script>
         <script src="./scripts/animations.js"></script>
+        <script src="./scripts/dial.js"></script>
+
+        <script>
+            // Intersection Observer to trigger the fade-up animation on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.2,
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        // Optional: Terminal text scramble effect for the company name
+                        const companyElement = entry.target.querySelector(".exp-company");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll(".experience-block").forEach((block) => {
+                observer.observe(block);
+            });
+        </script>
     </body>
 </html>
