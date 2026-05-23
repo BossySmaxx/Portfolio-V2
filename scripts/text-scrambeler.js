@@ -39,16 +39,17 @@ function applyScrambleEffect(element) {
     }, 24); // 30ms interval controls the frame rate of the scramble
 }
 
-/* ── Collapse Text Scrambling when in view ── */
-const textElements = document.querySelectorAll(".scramble-text");
+/* ── Collapse Scrambling Text entropy when in view ── */
 const textElementsObservers = new IntersectionObserver(
-    (entries) => {
+    (entries, observer) => {
         entries.forEach((e) => {
             if (e.isIntersecting) {
                 applyScrambleEffect(e.target);
+                observer.unobserve(e.target);
             }
         });
     },
     { threshold: 0.1 },
 );
+const textElements = document.querySelectorAll(".scramble-text");
 textElements.forEach((el) => textElementsObservers.observe(el));

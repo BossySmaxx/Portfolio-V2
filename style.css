@@ -20,6 +20,7 @@
 html {
     scroll-behavior: smooth;
 }
+
 body {
     background: #080808;
     color: var(--text);
@@ -44,18 +45,39 @@ body {
 }
 #cursor-ring {
     position: fixed;
-    width: 28px;
-    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
     border: 1px solid rgba(57, 255, 132, 0.4);
     border-radius: 0;
     pointer-events: none;
     z-index: 9998;
+    text-wrap-mode: nowrap;
+    color: var(--phosphor);
     transition:
         transform 0.18s ease,
-        width 0.2s,
-        height 0.2s,
-        opacity 0.2s;
+        width 0.75s,
+        height 0.25s,
+        opacity 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
     transform: translate(-50%, -50%);
+    display: inline-block;
+}
+.cursor-ring-text {
+    animation: fadeIn 0.75s forwards;
+    display: inline-block;
+}
+.cursor-ring-text .right-rortate-arrow {
+    display: inline-block;
+    transform: scaleX(-1);
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-0px);
+    }
 }
 
 body:has(a:hover) #cursor-ring,
@@ -673,6 +695,27 @@ nav {
     z-index: 1;
     margin-top: 10px;
 }
+@media screen and (max-width: 460px) {
+    .timeline-container {
+        margin: 10px auto;
+    }
+
+    .timeline-container::before {
+        display: none;
+    }
+
+    .exp-left {
+        width: 100%;
+        position: relative;
+        z-index: 1;
+        margin-top: 10px;
+        padding: 0 !important;
+    }
+
+    .exp-right {
+        padding-left: 0px;
+    }
+}
 
 .exp-year {
     font-size: 1.2rem;
@@ -694,7 +737,9 @@ nav {
     line-height: 1.1;
     text-transform: uppercase;
     color: #fff;
-    text-shadow: 2px 2px 0px rgba(0, 255, 102, 0.3);
+    text-shadow: 2px 2px 0px var(--phosphor-dim);
+    /* text-wrap-mode: nowrap; */
+    text-align: left;
 }
 
 /* Decorative ASCII element */
@@ -729,7 +774,7 @@ nav {
 /* Right Side: Role & Summary Card */
 .exp-right {
     width: 60%;
-    padding-left: 2rem;
+    /* padding-left: 2rem; */
     z-index: 1;
 }
 
@@ -737,7 +782,7 @@ nav {
 .brutal-card {
     background-color: #0a0a0a;
     border: var(--border-thick);
-    padding: 2rem;
+    /* padding: 2rem; */
     position: relative;
     /* Harsh solid shadow */
     box-shadow: 12px 12px 0px 0px var(--phosphor);
@@ -843,4 +888,23 @@ nav {
     .ascii-decor {
         display: none; /* Hide ASCII on mobile to save space */
     }
+}
+
+#contact .contact-link {
+    position: relative;
+    letter-spacing: 4px;
+}
+
+#contact .contact-link::before {
+    content: "";
+    width: 100%;
+    height: 5px;
+    bottom: -10px;
+    position: absolute;
+    background-color: var(--phosphor-dim);
+    transform: scaleX(0);
+    transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#contact .contact-link:hover::before {
+    transform: scaleX(1);
 }

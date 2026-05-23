@@ -5,6 +5,11 @@
     user-select: none;
 }
 
+.dial-container .icon {
+    font-size: 1.5rem;
+    color: var(--phosphor);
+}
+
 .dial-mask {
     width: 320px;
     height: 160px;

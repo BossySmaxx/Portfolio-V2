@@ -6,6 +6,7 @@ const experiences = [
     {
         organization_name: "logicasana",
         role_title: "Solution Engineer",
+        url: "https://logicasana.com/",
         startMonth: 5,
         endMonth: 1,
         startYear: 2024,
@@ -19,7 +20,8 @@ const experiences = [
     {
         organization_name: "colorbracket technologies",
         role_title: "Solution Engineer",
-        startMonth: 10,
+        url: "https://colorbracket.com/about-us.html",
+        startMonth: 8,
         endMonth: 5,
         startYear: 2022,
         endYear: 2024,
@@ -31,8 +33,9 @@ const experiences = [
         `,
     },
     {
-        organization_name: "Geeta University - GTH",
+        organization_name: "GTH, Geeta University",
         role_title: "Web Developer",
+        url: "https://geetauniversity.edu.in",
         startMonth: 10,
         endMonth: 8,
         startYear: 2021,
@@ -77,12 +80,14 @@ const timelineNode = document.querySelector(".experiences-container .timeline-no
 
 // function to update the experiences UI when year changes
 function changeExperienceAsPerYear(currentYear) {
-    // get exprience details by year
     // console.log(expYearEle, roleTitleEle, summaryListEle);
 
+    // get exprience details by year
     const selectedExperienceObj = experiences.find((item) => currentYear >= item.startYear && currentYear <= item.endYear);
     if (selectedExperienceObj) {
-        expYearEle.textContent = selectedExperienceObj.startYear.toString().concat(" - ", selectedExperienceObj.endYear);
+        expYearEle.textContent = months[selectedExperienceObj.startMonth]
+            .toString()
+            .concat(" ", selectedExperienceObj.startYear, " - ", months[selectedExperienceObj.endMonth], " ", selectedExperienceObj.endYear);
         roleTitleEle.textContent = selectedExperienceObj.role_title;
         expCompanyEle.textContent = selectedExperienceObj.organization_name;
         summaryListEle.innerHTML = selectedExperienceObj.summary;
@@ -212,3 +217,36 @@ window.addEventListener("mouseup", endDrag);
 wheel.addEventListener("touchstart", startDrag, { passive: false });
 window.addEventListener("touchmove", drag, { passive: false });
 window.addEventListener("touchend", endDrag);
+
+// handlig mouse hover on  dial wheel
+const dialContainer = document.querySelector(".dial-container");
+let ringWidth;
+const ringClone = ring.cloneNode(true);
+let isClonedRingAdded = false;
+
+dialContainer.addEventListener("mouseenter", (event) => {
+    if (isClonedRingAdded == false) {
+        isClonedRingAdded = true;
+        document.body.appendChild(ringClone);
+
+        ringClone.innerHTML = "⤺ ROTATE DIAL ⤳";
+        ringClone.style.position = "absolute";
+        ringClone.style.top = "-1000px";
+        ringClone.style.left = "-1000px";
+        ringClone.style.opacity = "0";
+
+        ringWidth = ringClone.clientWidth;
+
+        ring.innerHTML = `<span class='cursor-ring-text'><i class="left-rortate-arrow">⤺</i> ROTATE DIAL <i class="right-rortate-arrow">⤺</i></span>`;
+        ring.style.textAlign = "CENTER";
+        ring.style.width = `${ringWidth + 10}px`;
+    }
+});
+
+dialContainer.addEventListener("mouseleave", (event) => {
+    ring.innerHTML = "";
+    document.body.removeChild(ringClone);
+    ring.style.width = `28px`;
+
+    isClonedRingAdded = false;
+});
